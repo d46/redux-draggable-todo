@@ -1,7 +1,10 @@
 import React, {Component} from "react"
 import {arrayMove} from 'react-sortable-hoc'
 import SortableList from "./hocs/SortableList"
-
+import Icon from 'react-icons-kit'
+import { plus } from 'react-icons-kit/icomoon/plus'
+import style from "./TodoList.styl"
+import NewSortableItem from "./hocs/NewSortableItem";
 
 class TodoList extends Component {
 
@@ -21,7 +24,17 @@ class TodoList extends Component {
 
     render() {
         return (
-            <SortableList items={this.state.items} onSortEnd={this.onSortEnd}/>
+            <div className={style.container}>
+                <div className={style.header}>
+                    Task Manager
+                    <button className={style.addButton}>
+                        <Icon icon={plus} />
+                    </button>
+                </div>
+                <NewSortableItem/>
+                <SortableList items={this.state.items} onSortEnd={this.onSortEnd}/>
+            </div>
+
         )
     }
 
