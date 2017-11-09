@@ -1,19 +1,7 @@
 import React, {Component} from "react"
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import {arrayMove} from 'react-sortable-hoc'
+import SortableList from "./hocs/SortableList"
 
-const SortableItem = SortableElement(({value}) =>
-    <li>{value}</li>
-);
-
-const SortableList = SortableContainer(({items}) => {
-    return (
-        <ul>
-            {items.map((value, index) => (
-                <SortableItem key={`item-${index}`} index={index} value={value} />
-            ))}
-        </ul>
-    );
-});
 
 class TodoList extends Component {
 
@@ -33,7 +21,7 @@ class TodoList extends Component {
 
     render() {
         return (
-            <SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+            <SortableList items={this.state.items} onSortEnd={this.onSortEnd}/>
         )
     }
 
