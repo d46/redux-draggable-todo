@@ -1,13 +1,20 @@
 import React from 'react'
 import {SortableContainer} from 'react-sortable-hoc'
-import SortableItem from './SortableItem'
+import SortableTask from './SortableTask'
 import style from "./SortableList.styl"
 
-export default  SortableContainer(({items}) => {
+export default SortableContainer(({
+                                      tasks,
+                                      removeTask
+                                  }) => {
     return (
         <ul className={style.container}>
-            {items.map((value, index) => (
-                <SortableItem key={`item-${index}`} index={index} value={value} />
+            {tasks.map((task, index) => (
+                <SortableTask
+                    removeTask={removeTask}
+                    key={`item-${index}`}
+                    index={index}
+                    task={task}/>
             ))}
         </ul>
     );
