@@ -7,13 +7,4 @@ const caminte = require('caminte'),
 
 const schema = new Schema(config.driver, config)
 
-const Event = schema.define('Event', {
-    eventName: String,
-    eventPayload: schema.JSON
-})
-
-schema.adapter.autoupdate(() => {
-    console.log("updated");
-})
-
-module.exports = Event
+module.exports = schema
