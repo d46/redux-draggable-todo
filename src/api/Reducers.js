@@ -2,7 +2,6 @@ const Task = require('./models/Task')
 const actions = require('./Actions')
 
 const Reducers = (event) => {
-    console.log(event);
     return new Promise((resolve, reject) => {
         switch (event.eventName) {
             case actions.REMOVE_TASK:

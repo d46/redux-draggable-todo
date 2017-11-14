@@ -13,7 +13,6 @@ got.get('localhost:3000', {
         "Content-Type": "application/json",
     }
 }).then((data) => {
-    console.log();
     store.dispatch({
         type: INITIAL_DATA,
         INITIAL_DATA: {

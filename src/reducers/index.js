@@ -9,7 +9,6 @@ import {arrayMove} from 'react-sortable-hoc'
 
 let id = 0
 const reducers = (state, action) => {
-    console.log(state);
     switch (action.type) {
         case INITIAL_DATA:
             return action.INITIAL_DATA
