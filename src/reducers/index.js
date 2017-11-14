@@ -1,11 +1,14 @@
 import {
-    ADD_NEW_TASK
+    ADD_NEW_TASK,
+    REMOVE_TASK,
+    SORT_TASK,
+    TOGGLE_STATUS
 } from '../actions'
-import {REMOVE_TASK, SORT_TASK} from "../actions/index";
 import {arrayMove} from 'react-sortable-hoc'
 
-let id = 4
+let id = 0
 const reducers = (state, action) => {
+    console.log(action);
     switch (action.type) {
         case ADD_NEW_TASK:
             action.task.id = ++id
@@ -25,8 +28,20 @@ const reducers = (state, action) => {
         case REMOVE_TASK:
             return {
                 ...state,
-                tasks: state.tasks.filter(item => item.id !== action.task.id)
+                tasks: state.tasks.filter(task => task.id !== action.task.id)
             }
+        case TOGGLE_STATUS:
+            console.log('toggleStatus')
+            return {
+                ...state,
+                tasks: state.tasks.map(task => {
+                    if(task.id !== action.task.id) {
+                        task.status = !task.status
+                    }
+                    return task
+                })
+            }
+
         default:
             return state
     }

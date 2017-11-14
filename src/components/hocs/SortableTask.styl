@@ -5,6 +5,8 @@
   height 50px
   background #FFF
   color #333
+  position relative
+  cursor pointer
 .itemDone
   background #f8f8f8
   color #b4b4b4
@@ -19,13 +21,20 @@
   border-radius 50%
   border 2px solid #cccccc
   color #cccccc
+  position relative
+  z-index 10
 .iconContainerDone
   background #d5edbc
   border 2px solid #d5edbc
   color #FFF
 .removeContainer
-  float right
   color #d4d4d4
   border none
   background transparent
-  margin-top 15px
+  margin-top -10px
+  right: 10px;
+  top: 50%;
+  position absolute
+.valueContainer
+  position relative
+  z-index 1

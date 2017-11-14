@@ -35,14 +35,13 @@ class TodoListComponent extends Component {
             handleNewTask({
                 value: newTask,
                 id: 0,
-                status: 0
+                status: false
             })
             this.setState({
                 newTask: ''
             })
         }
     }
-
 
     render() {
         return (
@@ -59,10 +58,13 @@ class TodoListComponent extends Component {
                     handleNewTask={this.handleNewTask}
                 />
                 <SortableList
-                    distance={20}
+                    lockAxis="y"
+                    distance={50}
                     tasks={this.props.tasks}
                     onSortEnd={this.props.onSortEnd}
                     removeTask={this.props.removeTask}
+                    handleEditTask={this.props.handleEditTask}
+                    toggleStatus={this.props.toggleStatus}
                 />
             </div>
         )

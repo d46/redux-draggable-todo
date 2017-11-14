@@ -4,7 +4,7 @@ import {
     ADD_NEW_TASK,
     SORT_TASK
 } from '../actions'
-import {REMOVE_TASK} from "../actions/index";
+import {EDIT_TASK, REMOVE_TASK, TOGGLE_STATUS} from "../actions/index";
 
 const mapStateToProps = state => ({
     tasks: state.tasks
@@ -21,6 +21,14 @@ const mapDispatchToProps = {
     }),
     removeTask: (task) => ({
         type: REMOVE_TASK,
+        task
+    }),
+    handleEditTask: (task) => ({
+        type: EDIT_TASK,
+        task
+    }),
+    toggleStatus: (task) => ({
+        type: TOGGLE_STATUS,
         task
     })
 }
