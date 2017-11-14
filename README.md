@@ -4,6 +4,5 @@
 ## [Installation]
 ```sh
  npm install
- node src/api
- npm run serve
+ npm start
 ```
