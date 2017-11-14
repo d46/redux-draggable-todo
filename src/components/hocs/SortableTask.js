@@ -12,7 +12,6 @@ class SortableTask extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editTaskValue: props.task.value,
             editableTask: false
         }
 
@@ -21,6 +20,13 @@ class SortableTask extends Component {
         this.handleEditTask = this.handleEditTask.bind(this)
         this.handleEnter = this.handleEnter.bind(this)
         this.toggleEditable = this.toggleEditable.bind(this)
+        this.toggleStatus = this.toggleStatus.bind(this)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            editTaskValue: nextProps.task.value
+        })
     }
 
     removeTask() {
@@ -45,7 +51,7 @@ class SortableTask extends Component {
 
     handleEditTask(e) {
         this.setState({
-            editTaskValue:e.target.value
+            editTaskValue: e.target.value
         })
     }
 
@@ -56,32 +62,42 @@ class SortableTask extends Component {
     }
 
     toggleEditable(editableTask) {
-        console.log('togg')
         this.setState({
             editableTask: true
         })
     }
 
+    toggleStatus() {
+        const {
+            task,
+            toggleStatus
+        } = this.props
+        toggleStatus(task)
+    }
+
     render() {
         let classNameContainer = [style.iconContainer];
         let classNameItem = [style.item];
-        if (this.props.task.status) {
+        const {
+            task
+        } = this.props
+        if (task.status) {
             classNameItem.push(style.itemDone)
             classNameContainer.push(style.iconContainerDone)
         }
 
         return (
             <li className={classNameItem.join(' ')}>
-                <div onClick={this.props.toggleStatus} className={classNameContainer.join(' ')}>
+                <div onClick={this.toggleStatus} className={classNameContainer.join(' ')}>
                     <Icon icon={checkmark}/>
                 </div>
                 <div className={style.valueContainer} onClick={this.toggleEditable}>
-                    {!this.state.editableTask && this.state.editTaskValue}
+                    {!this.state.editableTask && this.props.task.value}
                     {this.state.editableTask && <input value={this.state.editTaskValue}
-                                            onChange={this.handleEditTask}
-                                            onBlur={this.submitEditTask}
-                                            onKeyPress={this.handleEnter}
-                                            type="text"/>}
+                                                       onChange={this.handleEditTask}
+                                                       onBlur={this.submitEditTask}
+                                                       onKeyPress={this.handleEnter}
+                                                       type="text"/>}
                 </div>
                 <button onClick={this.removeTask} className={style.removeContainer}>
                     <Icon icon={bin}/>

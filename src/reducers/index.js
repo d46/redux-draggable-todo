@@ -8,13 +8,12 @@ import {arrayMove} from 'react-sortable-hoc'
 
 let id = 0
 const reducers = (state, action) => {
-    console.log(action);
     switch (action.type) {
         case ADD_NEW_TASK:
             action.task.id = ++id
             return {
                 ...state,
-                tasks: [action.task, ...state.tasks]
+                tasks: [...state.tasks, action.task]
             }
         case SORT_TASK:
             const {
@@ -31,11 +30,10 @@ const reducers = (state, action) => {
                 tasks: state.tasks.filter(task => task.id !== action.task.id)
             }
         case TOGGLE_STATUS:
-            console.log('toggleStatus')
             return {
                 ...state,
                 tasks: state.tasks.map(task => {
-                    if(task.id !== action.task.id) {
+                    if(task.id === action.task.id) {
                         task.status = !task.status
                     }
                     return task

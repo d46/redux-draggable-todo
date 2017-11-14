@@ -33,7 +33,6 @@ const mapDispatchToProps = {
     })
 }
 
-
 const TodoListContainer = connect(mapStateToProps, mapDispatchToProps)(TodoListComponent)
 
 export default TodoListContainer

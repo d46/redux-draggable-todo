@@ -4,8 +4,10 @@ import {
     EDIT_TASK,
     REMOVE_TASK
 } from "../actions"
+import {SORT_TASK, TOGGLE_STATUS} from "../actions/index";
 
 export const api = store => next => action => {
+    next(action)
     let data
     switch (action.type) {
         case ADD_NEW_TASK:
@@ -13,7 +15,7 @@ export const api = store => next => action => {
                 eventName: action.type,
                 eventPayload: {
                     name: action.task.value,
-                    index: 0
+                    index: store.getState().tasks.length - 1
                 }
             })
             got.post('localhost:3000', {
@@ -56,7 +58,41 @@ export const api = store => next => action => {
                 body: data
             })
             break
+
+        case TOGGLE_STATUS:
+            data = JSON.stringify({
+                eventName: action.type,
+                eventPayload: {
+                    id: action.task.id,
+                    status: action.task.status,
+                }
+            })
+            got.post('localhost:3000', {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: data
+            })
+            break
+        case SORT_TASK:
+            let state = store.getState();
+            data = JSON.stringify({
+                eventName: action.type,
+                eventPayload: {
+                    newIndexId: state.tasks[action.sort.oldIndex].id,
+                    oldIndexId: state.tasks[action.sort.newIndex].id,
+                    oldIndex: action.sort.oldIndex,
+                    newIndex: action.sort.newIndex
+                }
+            })
+            got.post('localhost:3000', {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: data
+            })
     }
 
-    return next(action)
 }

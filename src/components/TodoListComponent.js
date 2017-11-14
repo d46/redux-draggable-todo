@@ -14,22 +14,27 @@ class TodoListComponent extends Component {
         }
         this.handleNewTask = this.handleNewTask.bind(this)
         this.addNewTask = this.addNewTask.bind(this)
+        this.submitNewTask = this.submitNewTask.bind(this)
     }
 
     handleNewTask(e) {
         this.setState({
             newTask: e.target.value
         })
-        if(e.key === 'Enter') {
+    }
+
+    submitNewTask(e) {
+        if (e.key === 'Enter') {
             this.addNewTask()
         }
     }
+
     addNewTask() {
         const {
             newTask
         } = this.state
-        if(newTask.length > 3) {
-            const{
+        if (newTask.length > 3) {
+            const {
                 handleNewTask
             } = this.props;
             handleNewTask({
@@ -56,10 +61,11 @@ class TodoListComponent extends Component {
                     newTask={this.state.newTask}
                     addNewTask={this.addNewTask}
                     handleNewTask={this.handleNewTask}
+                    submitNewTask={this.submitNewTask}
                 />
                 <SortableList
                     lockAxis="y"
-                    distance={50}
+                    distance={10}
                     tasks={this.props.tasks}
                     onSortEnd={this.props.onSortEnd}
                     removeTask={this.props.removeTask}

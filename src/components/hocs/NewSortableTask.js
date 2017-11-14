@@ -6,14 +6,14 @@ import {plus} from 'react-icons-kit/icomoon/plus';
 export default ({
                     handleNewTask,
                     addNewTask,
-                    ref
+                    submitNewTask
                 }) => {
     return (
         <div className={style.item}>
             <div onClick={addNewTask} className={style.iconContainer}>
                 <Icon size={25} icon={plus}/>
             </div>
-            <input onKeyPress={handleNewTask} className={style.input} type="text"/>
+            <input onChange={handleNewTask} onKeyPress={submitNewTask} className={style.input} type="text"/>
         </div>
     )
 }
