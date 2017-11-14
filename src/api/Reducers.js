@@ -62,6 +62,19 @@ const Reducers = (event) => {
                     reject(e)
                 })
                 break
+            case actions.TOGGLE_STATUS:
+                Task.update({
+                    where: {
+                        id: event.eventPayload.id
+                    }
+                }, {
+                    taskStatus: event.eventPayload.status
+                }).then(() => {
+                    resolve()
+                }).catch((e) => {
+                    reject(e)
+                })
+                break
         }
     })
 }
