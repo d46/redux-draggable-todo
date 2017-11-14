@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --watch",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "preserve": "node src/api/utils/migrate_models.js",
+    "pretest": "node src/api/utils/migrate_models.js",
+    "test": "ava src/api/test"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "ava": "^0.23.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -22,11 +25,14 @@
     "style-loader": "^0.19.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "tap-nyan": "^1.1.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "caminte": "^0.4.0",
+    "got": "^7.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",

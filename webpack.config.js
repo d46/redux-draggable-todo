@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+const webpack = require('webpack')
 
 
 module.exports = {
@@ -36,5 +37,6 @@ module.exports = {
         compress: true,
         port: 9000
     },
-    devtool: 'eval-source-map'
+    devtool: 'eval-source-map',
+    plugins: [new webpack.IgnorePlugin(/^electron$/)]
 }
