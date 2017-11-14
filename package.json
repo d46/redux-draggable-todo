@@ -8,7 +8,8 @@
     "serve": "webpack-dev-server",
     "preserve": "node src/api/utils/migrate_models.js",
     "pretest": "node src/api/utils/migrate_models.js",
-    "test": "ava src/api/test"
+    "test": "ava src/api/test",
+    "start": "node src/api && npm run serve"
   },
   "author": "",
   "license": "ISC",
