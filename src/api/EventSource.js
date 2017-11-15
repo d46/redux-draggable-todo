@@ -2,8 +2,8 @@ const Event = require('./models/Event')
 
 class EventSource {
     constructor(reducers) {
-        this.memSource = []
-        this.dmemSource = []
+        this.source = []
+        this.bufferSource = []
         this.sourceStatus = true
         this.reducers = reducers
     }
@@ -11,33 +11,44 @@ class EventSource {
     addEvent(event) {
         // Commit event to db
         Event.create(event)
+
+        // Add event to source if source available
+        // or add to bufferSource
         if (this.sourceStatus) {
-            this.memSource.push(event)
+            this.source.push(event)
             this.runner()
         } else {
-            this.dmemSource.push(event)
+            this.bufferSource.push(event)
         }
     }
 
     runner() {
-        if (this.memSource.length > 0) {
+        // Operate source container
+        if (this.source.length > 0) {
+            // Set operation status for source
             this.sourceStatus = false
-            this.reducers(this.memSource[0]).then(()=>{
+            // Transmit the first source item to reducers
+            return this.reducers(this.source[0]).then(() => {
                 // Remove first event
-                this.memSource = this.memSource.filter((e, i) => i !== 0)
+                this.source = this.source.filter((e, i) => i !== 0)
+                // Continue
                 this.runner()
-            }).catch((e)=>{
-                // console.log(e);
+            }).catch((e) => {
+                console.log(e);
             })
         }
-        if(this.dmemSource.length > 0) {
+        // In the mean time operating a source
+        // new events flow to bufferSource
+        if (this.bufferSource.length > 0) {
+            // Set operation status for source
             this.sourceStatus = true
-            this.memSource = this.dmemSource
-            this.dmemSource = []
-            this.runner()
+            // Set source from buffer
+            this.source = this.bufferSource
+            this.bufferSource = []
+            return this.runner()
         }
-        if(this.dmemSource.length === 0 && this.memSource.length === 0) {
-            // console.log("Source empty.");
+        if (this.bufferSource.length === 0 && this.source.length === 0) {
+            // Source empty
         }
     }
 }
