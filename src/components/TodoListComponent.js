@@ -19,7 +19,7 @@ class TodoListComponent extends Component {
 
     handleNewTask(e) {
         this.setState({
-            newTask: e.target.value
+            title: e.target.value
         })
     }
 
@@ -31,7 +31,7 @@ class TodoListComponent extends Component {
 
     addNewTask() {
         const {
-            newTask
+            title
         } = this.state
         const {
             tasks,
@@ -42,15 +42,15 @@ class TodoListComponent extends Component {
         if (tasks[tasks.length] && tasks.length > 1) {
             prevId = tasks[tasks.length]
         }
-        if (newTask.length > 3) {
+        if (title.length > 3) {
             handleNewTask({
-                value: newTask,
+                title: title,
                 id: 0,
                 status: false,
                 prevId: prevId
             })
             this.setState({
-                newTask: ''
+                title: ''
             })
         }
     }
@@ -65,7 +65,7 @@ class TodoListComponent extends Component {
                     </button>
                 </div>
                 <NewSortableItem
-                    newTask={this.state.newTask}
+                    newTask={this.state.title}
                     addNewTask={this.addNewTask}
                     handleNewTask={this.handleNewTask}
                     submitNewTask={this.submitNewTask}

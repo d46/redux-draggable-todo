@@ -1,8 +1,8 @@
 const schema = require('./Schema')
 
 const Event = schema.define('Task', {
-    taskName: String,
-    taskStatus: schema.JSON,
+    name: String,
+    status: schema.JSON,
     prevId: Number
 })
 

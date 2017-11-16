@@ -1,6 +1,5 @@
 const test = require('ava')
 const EventSource = require('../EventSource')
-const reducers = require('../Reducers')
 
 const Task = require('../models/Task')
 const actions = require('../Actions')
@@ -8,7 +7,7 @@ const actions = require('../Actions')
 test('EventSource - Add one event to source', t => {
     let map = []
     const event = {
-        eventName: actions.ADD_NEW_TASK
+        name: actions.ADD_NEW_TASK
     }
     const eventSource = new EventSource(async (event) => {
         await map.push(event)
@@ -23,7 +22,7 @@ test('EventSource - Add 10k event to source', async t => {
         await map.push(event)
     })
     const event = {
-        eventName: actions.ADD_NEW_TASK
+        name: actions.ADD_NEW_TASK
     }
     for(let i=0;i<10000;i++) {
         eventSource1.addEvent(event)

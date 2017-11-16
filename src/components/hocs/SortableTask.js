@@ -25,7 +25,7 @@ class SortableTask extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            editTaskValue: nextProps.task.value
+            editTaskTitle: nextProps.task.title
         })
     }
 
@@ -42,7 +42,7 @@ class SortableTask extends Component {
             handleEditTask,
             task
         } = this.props
-        task.value = this.state.editTaskValue
+        task.title = this.state.editTaskTitle
         handleEditTask(task)
         this.setState({
             editableTask: false
@@ -51,7 +51,7 @@ class SortableTask extends Component {
 
     handleEditTask(e) {
         this.setState({
-            editTaskValue: e.target.value
+            editTaskTitle: e.target.value
         })
     }
 
@@ -92,8 +92,8 @@ class SortableTask extends Component {
                     <Icon icon={checkmark}/>
                 </div>
                 <div className={style.valueContainer} onClick={this.toggleEditable}>
-                    {!this.state.editableTask && this.props.task.value}
-                    {this.state.editableTask && <input value={this.state.editTaskValue}
+                    {!this.state.editableTask && this.props.task.title}
+                    {this.state.editableTask && <input value={this.state.editTaskTitle}
                                                        onChange={this.handleEditTask}
                                                        onBlur={this.submitEditTask}
                                                        onKeyPress={this.handleEnter}

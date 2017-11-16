@@ -12,9 +12,9 @@ export const api = store => next => action => {
     switch (action.type) {
         case ADD_NEW_TASK:
             data = JSON.stringify({
-                eventName: action.type,
-                eventPayload: {
-                    name: action.task.value,
+                name: action.type,
+                payload: {
+                    title: action.task.title,
                     index: store.getState().tasks.length - 1
                 }
             })
@@ -28,8 +28,8 @@ export const api = store => next => action => {
             break
         case REMOVE_TASK:
             data = JSON.stringify({
-                eventName: action.type,
-                eventPayload: {
+                name: action.type,
+                payload: {
                     id: action.task.id,
                 }
             })
@@ -44,8 +44,8 @@ export const api = store => next => action => {
 
         case EDIT_TASK:
             data = JSON.stringify({
-                eventName: action.type,
-                eventPayload: {
+                name: action.type,
+                payload: {
                     name: action.task.id,
                     status: action.task.status,
                 }
@@ -61,8 +61,8 @@ export const api = store => next => action => {
 
         case TOGGLE_STATUS:
             data = JSON.stringify({
-                eventName: action.type,
-                eventPayload: {
+                name: action.type,
+                payload: {
                     id: action.task.id,
                     status: action.task.status,
                 }
@@ -115,8 +115,8 @@ export const api = store => next => action => {
             }
 
             data = JSON.stringify({
-                eventName: action.type,
-                eventPayload: {
+                name: action.type,
+                payload: {
                     leftTask: leftTask,
                     currentTask: currentTask,
                     rightTask: rightTask,
@@ -128,8 +128,8 @@ export const api = store => next => action => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    eventName: EDIT_TASK,
-                    eventPayload: rightTask
+                    name: EDIT_TASK,
+                    payload: rightTask
                 })
             })
             got.post('localhost:3000', {
@@ -138,8 +138,8 @@ export const api = store => next => action => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    eventName: EDIT_TASK,
-                    eventPayload: leftTask
+                    name: EDIT_TASK,
+                    payload: leftTask
                 })
             })
             got.post('localhost:3000', {
@@ -148,8 +148,8 @@ export const api = store => next => action => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    eventName: EDIT_TASK,
-                    eventPayload: currentTask
+                    name: EDIT_TASK,
+                    payload: currentTask
                 })
             })
     }

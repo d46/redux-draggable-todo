@@ -7,7 +7,7 @@ const Reducers = (event) => {
             case actions.REMOVE_TASK:
                 Task.remove({
                     where: {
-                        id: event.eventPayload.id
+                        id: event.payload.id
                     }
                 }, () => {
                     resolve()
@@ -15,9 +15,9 @@ const Reducers = (event) => {
                 break
             case actions.ADD_NEW_TASK:
                 Task.create({
-                    taskName: event.eventPayload.name,
-                    taskStatus: false,
-                    taskIndex: event.eventPayload.index
+                    name: event.payload.name,
+                    status: false,
+                    index: event.payload.index
                 }, () => {
                     resolve()
                 })
@@ -26,11 +26,11 @@ const Reducers = (event) => {
             case actions.EDIT_TASK:
                 Task.update({
                     where: {
-                        id: event.eventPayload.id
+                        id: event.payload.id
                     }
                 }, {
-                    taskName: event.eventPayload.name,
-                    taskStatus: event.eventPayload.status
+                    name: event.payload.name,
+                    status: event.payload.status
                 }).then(() => {
                     resolve()
                 }).catch((e) => {
@@ -40,10 +40,10 @@ const Reducers = (event) => {
             case actions.TOGGLE_STATUS:
                 Task.update({
                     where: {
-                        id: event.eventPayload.id
+                        id: event.payload.id
                     }
                 }, {
-                    taskStatus: event.eventPayload.status
+                    status: event.payload.status
                 }).then(() => {
                     resolve()
                 }).catch((e) => {
