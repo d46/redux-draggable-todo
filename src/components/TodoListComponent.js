@@ -33,14 +33,21 @@ class TodoListComponent extends Component {
         const {
             newTask
         } = this.state
+        const {
+            tasks,
+            handleNewTask
+        } = this.props
+        let prevId = null
+
+        if (tasks[tasks.length] && tasks.length > 1) {
+            prevId = tasks[tasks.length]
+        }
         if (newTask.length > 3) {
-            const {
-                handleNewTask
-            } = this.props;
             handleNewTask({
                 value: newTask,
                 id: 0,
-                status: false
+                status: false,
+                prevId: prevId
             })
             this.setState({
                 newTask: ''

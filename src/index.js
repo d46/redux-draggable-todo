@@ -20,7 +20,7 @@ got.get('localhost:3000', {
                 return {
                     id:task.id,
                     value: task.taskName,
-                    index: task.taskIndex,
+                    prevId: task.prevId,
                     status: task.taskStatus
                 }
             })

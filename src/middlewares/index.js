@@ -76,14 +76,50 @@ export const api = store => next => action => {
             })
             break
         case SORT_TASK:
-            let state = store.getState();
+            let state = store.getState()
+            const {
+                tasks
+            } = state
+            let newIndex = action.sort.newIndex
+            let oldIndex = action.sort.oldIndex
+            let leftTask, rightTask, currentTask
+
+            rightTask = tasks[newIndex + 1]
+            if(!!rightTask) {
+                rightTask.prevId = tasks[newIndex].id
+            }
+
+            if(oldIndex > newIndex) {
+                leftTask = tasks[oldIndex]
+                if(!!leftTask) {
+                    let prevId = null
+                    if(tasks[oldIndex - 1]) {
+                        prevId = tasks[oldIndex - 1].id
+                    }
+                    leftTask.prevId = prevId
+                }
+            }else{
+                leftTask = tasks[oldIndex + 1]
+                if(!!leftTask) {
+                    let prevId = null
+                    if(tasks[oldIndex]) {
+                        prevId = tasks[oldIndex].id
+                    }
+                    leftTask.prevId = prevId
+                }
+            }
+
+            currentTask = tasks[newIndex]
+            if(!!currentTask) {
+                currentTask.prevId = tasks[newIndex - 1]
+            }
+
             data = JSON.stringify({
                 eventName: action.type,
                 eventPayload: {
-                    newIndexId: state.tasks[action.sort.oldIndex].id,
-                    oldIndexId: state.tasks[action.sort.newIndex].id,
-                    oldIndex: action.sort.oldIndex,
-                    newIndex: action.sort.newIndex
+                    leftTask: leftTask,
+                    currentTask: currentTask,
+                    rightTask: rightTask,
                 }
             })
             got.post('localhost:3000', {
@@ -91,7 +127,30 @@ export const api = store => next => action => {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: data
+                body: JSON.stringify({
+                    eventName: EDIT_TASK,
+                    eventPayload: rightTask
+                })
+            })
+            got.post('localhost:3000', {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    eventName: EDIT_TASK,
+                    eventPayload: leftTask
+                })
+            })
+            got.post('localhost:3000', {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    eventName: EDIT_TASK,
+                    eventPayload: currentTask
+                })
             })
     }
 

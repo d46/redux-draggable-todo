@@ -23,30 +23,6 @@ const Reducers = (event) => {
                 })
 
                 break
-            case actions.SORT_TASK:
-                Task.update({
-                    where: {
-                        id: event.eventPayload.newIndexId
-                    }
-                }, {
-                    taskIndex: event.eventPayload.oldIndex
-                }).then(() => {
-                    Task.update({
-                        where: {
-                            id: event.eventPayload.oldIndexId
-                        }
-                    }, {
-                        taskIndex: event.eventPayload.newIndex
-                    }).then(() => {
-                        resolve()
-                    }).catch((e) => {
-                        reject(e)
-                    })
-                }).catch((e) => {
-                    reject(e)
-                })
-
-                break
             case actions.EDIT_TASK:
                 Task.update({
                     where: {

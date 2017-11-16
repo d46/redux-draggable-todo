@@ -8,7 +8,7 @@
     "serve": "webpack-dev-server",
     "preserve": "node src/api/utils/migrate_models.js",
     "pretest": "node src/api/utils/migrate_models.js",
-    "test": "ava src/api/test",
+    "test": "ava src/test --verbose",
     "start": "node src/api && npm run serve"
   },
   "author": "",
@@ -41,5 +41,11 @@
     "react-sortable-hoc": "^0.6.8",
     "redux": "^3.7.2",
     "sqlite3": "^3.1.13"
+  },
+  "ava": {
+    "require": ["babel-register"]
+  },
+  "babel": {
+    "presets": ["@ava/stage-4"]
   }
 }
